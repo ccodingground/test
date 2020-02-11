@@ -13,18 +13,21 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import board.dto.FileDTO;
+import board.entity.BoardFileEntity;
 
 @Component//스프링빈으로 등록
-public class FileUtils {
+public class JpaFileUtils {
 	
-	public List<FileDTO> parseFileInfo(int b_no, MultipartHttpServletRequest mr) throws Exception {
+	public List<BoardFileEntity> parseFileInfo(MultipartHttpServletRequest mr) throws Exception {
 		//첨부파일 미존재시..
+		//ObjectUtils.isEmpty(mr) 비어있으면 true, 존재하면 false
 		if(ObjectUtils.isEmpty(mr)) {
+			System.out.println("파일없음");
 			return null;
 		}
 		//첨부파일 존재시..처리
 		
-		List<FileDTO> fileList=new ArrayList<>();
+		List<BoardFileEntity> fileList=new ArrayList<>();
 		//파일이 저장될 폴더 날짜를 이용하여 생성
 		DateTimeFormatter formatter=DateTimeFormatter.ofPattern("yyyyMMdd");
 		ZonedDateTime now=ZonedDateTime.now();
@@ -55,10 +58,10 @@ public class FileUtils {
 				System.out.println("새로운 파일이름 : "+newName);
 			
 				
-				FileDTO dto=new FileDTO();
-				dto.setB_no(b_no);//게시글 번호
+				BoardFileEntity dto=new BoardFileEntity();
+				//dto.setB_no(b_no);//게시글 번호
 				dto.setFile_name(mf.getOriginalFilename());//원래 파일이름
-				dto.setFile_path(dir+"/"+newName);//실제저장위치
+				dto.setFile_path(path+"/"+newName);//실제저장위치
 				dto.setFile_size(mf.getSize());
 				
 				fileList.add(dto);

@@ -29,7 +29,7 @@
 				<tr th:if="${#lists.size(list)} > 0"  th:each="dto : ${list}">
 					<td th:text="${dto.boardNo}"></td>
 					<td >
-						<a href="/board/openBoardDetail.bo?no="  
+						<a href="/jpa/board/"  
 						th:attrappend="href=${dto.boardNo}"
 						th:text="${dto.title}"></a>
 					</td>

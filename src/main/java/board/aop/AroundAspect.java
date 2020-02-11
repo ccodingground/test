@@ -18,11 +18,11 @@ public class AroundAspect{
 		}else if(name.contains("controller")) {
 			type="Controller \t: "+name+ "/"+ joinPoint.getSignature().getName();//method name
 		}
-		System.out.println(type+"실행전 처리");
+		//System.out.println(type+"실행전 처리");
 		
 		Object result=joinPoint.proceed();
 		
-		System.out.println(type+"실행후 처리");
+		//System.out.println(type+"실행후 처리");
 		return result;
 	}
 }
